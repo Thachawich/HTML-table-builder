@@ -12,7 +12,7 @@ int main()
     fstream fout;
 
     fout.open("table.txt", ios::out);
-    fout << "Name" << "\n" << "age" << "\n" << "colour" << "\n" << "food" << "\n";
+    fout << "<tr><th>Name" << "\n\t" << "<th>age" << "\n\t" << "<th>colour" << "\n\t" << "<th>food";
 
     cout << "Enter details:";
 
@@ -32,7 +32,7 @@ int main()
         getline(cin, food);
           
 
-        fout << name << "\n" << age << "\n" << colour << "\n" << food << "\n";
+        fout << "\n</tr><tr>\n\t<th>" << name << "\n\t" << "<th>" << age << "\n\t" << "<th>" << colour << "\n\t" << "<th>" << food;
     }
     fout.close(); 
     fstream fin;
@@ -54,11 +54,9 @@ int main()
     {
         ifstream x;
         string name;
-        string head = "<!DOCTYPE html>\n<html>\n<head> <style> table, th, td { border: 1px solid black; } </style> </head><body>\n<table>";
+        string head = "<!DOCTYPE html>\n<html>\n<head> <style> table, th, td { border: 1px solid black; } </style> </head><body>\n<table>\n";
         string tail = "</table>";
-        string bodystart = "</th>\n";
-        string bodyclose = "<tr>\n";
-        string lend = "<th>";
+        string lend = "</th>\n";
 
         ofstream y;
         x.open("table.txt", std::ios::app);
@@ -66,12 +64,12 @@ int main()
 
         y << head;
         while (getline(x, name)) {
-            y << "<tr>\n";
-            for (int i = 0;i < 4;i++) {
-                y << "<th>";
-                y << name;
-                y << "</th>\n";
-            }
-            y << "</tr>\n";
+            y << name;
+            y << lend;
+
         }
+        y << tail;
     }
+
+    system("table.html");
+}
